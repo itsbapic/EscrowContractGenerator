@@ -68,7 +68,11 @@ function App() {
         </label>
 
         <label>
-          Deposit Amount (in Wei)
+          Deposit Amount (<span className="currencyType" onClick={(e) => {
+            e.preventDefault();
+
+            // TODO: change "in Wei" to "in ETH"
+          }}>in Wei</span>)
           <input type="text" id="wei" />
         </label>
 

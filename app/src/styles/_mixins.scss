@@ -1,0 +1,22 @@
+@mixin vertical-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+@mixin item-text {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-items: left;
+}
+
+@mixin title-text {
+    align-items: center;
+    color: #5a5a5a;
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+}
