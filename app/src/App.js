@@ -14,7 +14,7 @@ function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
-  const [currencyType, setCurrencyType] = useState("eth");
+  const [currencyType, setCurrencyType] = useState("ETH");
   const [currencyAmt, setCurrencyAmt] = useState("");
 
   useEffect(() => {
@@ -28,13 +28,13 @@ function App() {
     getAccounts();
   }, [account]);
 
+  // TODO: Get escrows stored in array on server!
   // useEffect(() => {
   //   async function getEscrows() {
   //     const initContracts = await fetch("http://localhost:5000/escrows");
   //     console.log(JSON.stringify(initContracts));
   //     setEscrows(initContracts);
   //   }
-
   //   getEscrows();
   // })
 
@@ -43,11 +43,11 @@ function App() {
   }
 
   async function toggleCurrencyType() {
-    if (currencyType === "wei") {
-      setCurrencyType("eth");
+    if (currencyType === "WEI") {
+      setCurrencyType("ETH");
       setCurrencyAmt(currencyAmt / 1000000000000000000);
     } else {
-      setCurrencyType("wei");
+      setCurrencyType("WEI");
       setCurrencyAmt(currencyAmt * 1000000000000000000);
     }
   }
@@ -55,10 +55,12 @@ function App() {
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
-    let value = ethers.BigNumber.from(document.getElementById('wei').value);
-    currencyType === "eth" && (value = value * 1000000000000000000);
-    const escrowContract = await deploy(signer, arbiter, beneficiary, value);
+    let tmpValue = document.getElementById('wei').value;
+    const value = currencyType === "ETH" ?
+      ethers.BigNumber.from(tmpValue) :
+      ethers.BigNumber.from(tmpValue * 1000000000000000000);
 
+    const escrowContract = await deploy(signer, arbiter, beneficiary, value);
 
     const escrow = {
       address: escrowContract.address,
@@ -81,7 +83,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="appContainer">
       <div className="contract">
         <h1> New Contract </h1>
         <label>
@@ -126,7 +128,7 @@ function App() {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

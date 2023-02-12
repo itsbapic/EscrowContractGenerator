@@ -34,7 +34,7 @@ To run the front-end application run `npm start` from the `/app` directory. Open
 2 points - Proper use of React (state, hooks, props)
 
 ## Design:
-2 point - UI (how creative is it)
+2 point - UI (how creative is it) ✅
 2 point - UX (how usable is it)
 
 ## Challenges

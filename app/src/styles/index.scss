@@ -1,22 +1,41 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+#root {
+    width: 100%;
+    height: 100%;
+}
 body {
     background-color: #eee;
     display: flex;
-    font-family: "Muli", sans-serif;
+    // font-family: "Muli", sans-serif;
+    font-family: "Josefin Sans";
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
 
 .contract,
 .existing-contracts {
-    margin: 20px;
+    margin: 30px;
     display: inline-block;
     padding: 40px;
     border: 1px solid #ddd;
     background-color: #fff;
+    border-radius: 15px;
 }
 
 h1 {
     margin: 10px;
     padding: 10px;
     border-bottom: 1px solid #eee;
+    font-weight: bold;
+    color: rgb(88, 88, 88);
 }
 
 .currencyType {
@@ -24,12 +43,13 @@ h1 {
     color: blue;
     user-select: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 label {
     display: flex;
     flex-direction: column;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     color: #aaa;
     margin: 20px;
 }
@@ -37,19 +57,34 @@ label {
 input[type="text"] {
     padding: 6px;
     font-size: 18px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: lightgrey;
+    border-style: solid;
 }
 
 .button {
-    background-color: #f58427;
     color: white;
+    border: 4px double transparent;
+    background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)),
+        radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
+    border-radius: 4px;
+
     margin: 20px;
     padding: 9px 25px;
     font-size: 14px;
+    font-weight: 800;
     letter-spacing: 1px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    :hover {
+        box-shadow: rgba(111, 76, 255, 0.5) 0px 0px 20px 0px;
+    }
 }
 
 .existing-contract ul {
