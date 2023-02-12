@@ -14,6 +14,8 @@ function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
+  const [currencyType, setCurrencyType] = useState("eth");
+  const [currencyAmt, setCurrencyAmt] = useState("");
 
   useEffect(() => {
     async function getAccounts() {
@@ -26,10 +28,35 @@ function App() {
     getAccounts();
   }, [account]);
 
+  // useEffect(() => {
+  //   async function getEscrows() {
+  //     const initContracts = await fetch("http://localhost:5000/escrows");
+  //     console.log(JSON.stringify(initContracts));
+  //     setEscrows(initContracts);
+  //   }
+
+  //   getEscrows();
+  // })
+
+  const handleCurrencyAmtChange = (event) => {
+    setCurrencyAmt(event.target.value);
+  }
+
+  async function toggleCurrencyType() {
+    if (currencyType === "wei") {
+      setCurrencyType("eth");
+      setCurrencyAmt(currencyAmt / 1000000000000000000);
+    } else {
+      setCurrencyType("wei");
+      setCurrencyAmt(currencyAmt * 1000000000000000000);
+    }
+  }
+
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
-    const value = ethers.BigNumber.from(document.getElementById('wei').value);
+    let value = ethers.BigNumber.from(document.getElementById('wei').value);
+    currencyType === "eth" && (value = value * 1000000000000000000);
     const escrowContract = await deploy(signer, arbiter, beneficiary, value);
 
 
@@ -70,10 +97,11 @@ function App() {
         <label>
           Deposit Amount (<span className="currencyType" onClick={(e) => {
             e.preventDefault();
-
             // TODO: change "in Wei" to "in ETH"
-          }}>in Wei</span>)
-          <input type="text" id="wei" />
+            toggleCurrencyType();
+
+          }}>in {currencyType}</span>)
+          <input type="text" id="wei" onChange={handleCurrencyAmtChange} value={currencyAmt} />
         </label>
 
         <div
