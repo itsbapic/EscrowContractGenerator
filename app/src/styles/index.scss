@@ -63,6 +63,10 @@ input[type="text"] {
     border-style: solid;
 }
 
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
+}
 .button {
     color: white;
     border: 4px double transparent;
@@ -85,6 +89,9 @@ input[type="text"] {
     :hover {
         box-shadow: rgba(111, 76, 255, 0.5) 0px 0px 20px 0px;
     }
+}
+.contractAction {
+    width: 100%;
 }
 
 .existing-contract ul {
@@ -110,4 +117,8 @@ input[type="text"] {
 .existing-contract .complete {
     color: #5aa75a;
     text-align: center;
+}
+
+.existing-contract .invalid {
+    display: none;
 }

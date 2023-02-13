@@ -42,4 +42,30 @@ describe('Escrow', function () {
       expect(after.sub(before)).to.eq(deposit);
     });
   });
+
+  describe('after approval from the arbiter', () => {
+    it('should revert', async () => {
+      const approveTxn = await contract.connect(arbiter).approve();
+      await approveTxn.wait();
+      await expect(contract.connect(arbiter).approve()).to.be.reverted;
+    });
+  });
+
+  describe('after refund from the arbiter', () => {
+    it('should transfer balance to depositor', async () => {
+      const before = await ethers.provider.getBalance(depositor.getAddress());
+      const approveTxn = await contract.connect(arbiter).refund();
+      await approveTxn.wait();
+      const after = await ethers.provider.getBalance(depositor.getAddress());
+      expect(after.sub(before)).to.eq(deposit);
+    });
+  });
+
+  describe('after refund from the arbiter', () => {
+    it('should revert', async () => {
+      const approveTxn = await contract.connect(arbiter).refund();
+      await approveTxn.wait();
+      await expect(contract.connect(arbiter).refund()).to.be.reverted;
+    });
+  });
 });

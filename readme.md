@@ -41,5 +41,5 @@ To run the front-end application run `npm start` from the `/app` directory. Open
 1 point - for deploying dApp on goerli network 
 2 points - for adding wei to ether conversion ✅
 3 points - for adding a server to keep track of deployed escrow contracts (you can use express.js)
-3 points - for adding 2 new features to Escrow.sol [(ideas for features)](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils/escrow)
+3 points - for adding 2 new features to Escrow.sol [(ideas for features)](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils/escrow) ✅(1/2)
 3 points - for adding tests for your features 

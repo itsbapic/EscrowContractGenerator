@@ -10,6 +10,11 @@ export async function approve(escrowContract, signer) {
   await approveTxn.wait();
 }
 
+export async function refund(escrowContract, signer) {
+  const refundTxn = await escrowContract.connect(signer).refund();
+  await refundTxn.wait();
+}
+
 function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
@@ -36,7 +41,7 @@ function App() {
   //     setEscrows(initContracts);
   //   }
   //   getEscrows();
-  // })
+  // }, []);
 
   const handleCurrencyAmtChange = (event) => {
     setCurrencyAmt(event.target.value);
@@ -70,13 +75,21 @@ function App() {
       value: value.toString(),
       handleApprove: async () => {
         escrowContract.on('Approved', () => {
-          document.getElementById(escrowContract.address).className =
-            'complete';
-          document.getElementById(escrowContract.address).innerText =
-            "✓ It's been approved!";
+          document.getElementById(escrowContract.address + "Approve").className = 'complete';
+          document.getElementById(escrowContract.address + "Refund").className = 'invalid';
+          document.getElementById(escrowContract.address + "Approve").innerText = "✓ It's been approved!";
         });
 
         await approve(escrowContract, signer);
+      },
+      handleRefund: async () => {
+        escrowContract.on('Refunded', () => {
+          document.getElementById(escrowContract.address + "Refund").className = 'complete';
+          document.getElementById(escrowContract.address + "Approve").className = 'invalid';
+          document.getElementById(escrowContract.address + "Refund").innerText = "✓ It's been refunded!";
+        });
+
+        await refund(escrowContract, signer);
       },
     };
 
