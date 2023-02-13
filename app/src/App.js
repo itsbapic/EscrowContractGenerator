@@ -57,8 +57,9 @@ function App() {
     const arbiter = document.getElementById('arbiter').value;
     let tmpValue = document.getElementById('wei').value;
     const value = currencyType === "ETH" ?
-      ethers.BigNumber.from(tmpValue) :
-      ethers.BigNumber.from(tmpValue * 1000000000000000000);
+
+      (ethers.BigNumber.from(ethers.utils.parseEther(tmpValue, "ether"))) :
+      (ethers.BigNumber.from(tmpValue));
 
     const escrowContract = await deploy(signer, arbiter, beneficiary, value);
 
