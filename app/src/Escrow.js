@@ -5,6 +5,7 @@ export default function Escrow({
   value,
   handleApprove,
   handleRefund,
+  handleToggleActionability,
 }) {
   return (
     <div className="existing-contract">
@@ -21,6 +22,16 @@ export default function Escrow({
           <div> Value </div>
           <div> {value} </div>
         </li>
+        <div
+          className="button"
+          id={address + "Toggle"}
+          onClick={(e) => {
+            e.preventDefault();
+
+            handleToggleActionability();
+          }}>
+          Toggle Actionability
+        </div>
         <div className="buttonContainer">
           <div
             className="button contractAction"

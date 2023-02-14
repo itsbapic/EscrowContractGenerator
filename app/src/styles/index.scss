@@ -122,3 +122,9 @@ input[type="text"] {
 .existing-contract .invalid {
     display: none;
 }
+
+.existing-contract .disabled {
+    pointer-events: none;
+    user-select: none;
+    opacity: 50%;
+}

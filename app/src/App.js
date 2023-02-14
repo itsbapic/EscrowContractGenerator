@@ -15,6 +15,11 @@ export async function refund(escrowContract, signer) {
   await refundTxn.wait();
 }
 
+export async function toggleActionability(escrowContract, signer) {
+  const toggleAction = await escrowContract.connect(signer).toggleActionability();
+  await toggleAction.wait();
+}
+
 function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
@@ -61,8 +66,8 @@ function App() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
     let tmpValue = document.getElementById('wei').value;
-    const value = currencyType === "ETH" ?
 
+    const value = currencyType === "ETH" ?
       (ethers.BigNumber.from(ethers.utils.parseEther(tmpValue, "ether"))) :
       (ethers.BigNumber.from(tmpValue));
 
@@ -91,6 +96,19 @@ function App() {
 
         await refund(escrowContract, signer);
       },
+      handleToggleActionability: async () => {
+        console.log("This is happening!!");
+        escrowContract.on("ActionabilityChanged", (actionability) => {
+          if (actionability) {
+            document.getElementById(escrowContract.address + "Approve").classList.remove('disabled');
+            document.getElementById(escrowContract.address + "Refund").classList.remove('disabled');
+          } else {
+            document.getElementById(escrowContract.address + "Approve").classList.add("disabled");
+            document.getElementById(escrowContract.address + "Refund").classList.add("disabled");
+          }
+        });
+        await toggleActionability(escrowContract, signer);
+      }
     };
 
     setEscrows([...escrows, escrow]);

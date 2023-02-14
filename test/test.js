@@ -68,4 +68,20 @@ describe('Escrow', function () {
       await expect(contract.connect(arbiter).refund()).to.be.reverted;
     });
   });
+
+  describe('after disabling action', () => {
+    it('should revert', async () => {
+      const disableAction = await contract.connect(arbiter).toggleActionability();
+      await disableAction.wait();
+      await expect(contract.connect(arbiter).refund()).to.be.reverted;
+    });
+  });
+
+  describe('after action from the arbiter', () => {
+    it('should revert', async () => {
+      const approveTxn = await contract.connect(arbiter).refund();
+      await approveTxn.wait();
+      await expect(contract.connect(arbiter).toggleActionability()).to.be.reverted;
+    });
+  });
 });
