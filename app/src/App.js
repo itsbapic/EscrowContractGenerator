@@ -82,6 +82,7 @@ function App() {
         escrowContract.on('Approved', () => {
           document.getElementById(escrowContract.address + "Approve").className = 'complete';
           document.getElementById(escrowContract.address + "Refund").className = 'invalid';
+          document.getElementById(escrowContract.address + "Toggle").classList.add("invalid");
           document.getElementById(escrowContract.address + "Approve").innerText = "✓ It's been approved!";
         });
 
@@ -91,13 +92,13 @@ function App() {
         escrowContract.on('Refunded', () => {
           document.getElementById(escrowContract.address + "Refund").className = 'complete';
           document.getElementById(escrowContract.address + "Approve").className = 'invalid';
-          document.getElementById(escrowContract.address + "Refund").innerText = "✓ It's been refunded!";
+          document.getElementById(escrowContract.address + "Toggle").classList.add("invalid");
+          document.getElementById(escrowContract.address + "Refund").innerText = "🗴 It's been refunded!";
         });
 
         await refund(escrowContract, signer);
       },
       handleToggleActionability: async () => {
-        console.log("This is happening!!");
         escrowContract.on("ActionabilityChanged", (actionability) => {
           if (actionability) {
             document.getElementById(escrowContract.address + "Approve").classList.remove('disabled');
