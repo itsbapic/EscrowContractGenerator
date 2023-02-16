@@ -1,3 +1,4 @@
+import server from './server';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import deploy from './deploy';
@@ -39,14 +40,18 @@ function App() {
   }, [account]);
 
   // TODO: Get escrows stored in array on server!
-  // useEffect(() => {
-  //   async function getEscrows() {
-  //     const initContracts = await fetch("http://localhost:5000/escrows");
-  //     console.log(JSON.stringify(initContracts));
-  //     setEscrows(initContracts);
-  //   }
-  //   getEscrows();
-  // }, []);
+  useEffect(() => {
+    async function getEscrows() {
+
+      const initContracts = await server.get("http://localhost:5000/escrows").then((response) => {
+        setEscrows(response.data)
+        console.log(response);
+      })
+      // console.log(initContracts);
+      // setEscrows(initContracts);
+    }
+    getEscrows();
+  }, []);
 
   const handleCurrencyAmtChange = (event) => {
     setCurrencyAmt(event.target.value);
@@ -111,6 +116,11 @@ function App() {
         await toggleActionability(escrowContract, signer);
       }
     };
+
+    await server.post("http://localhost:5000/escrows", { escrow }).then((response) => {
+      // setEscrows(response.data)
+      console.log(response);
+    })
 
     setEscrows([...escrows, escrow]);
   }
