@@ -43,12 +43,10 @@ function App() {
   useEffect(() => {
     async function getEscrows() {
 
-      const initContracts = await server.get("http://localhost:5000/escrows").then((response) => {
+      await server.get("http://localhost:5000/escrows").then((response) => {
         setEscrows(response.data)
         console.log(response);
       })
-      // console.log(initContracts);
-      // setEscrows(initContracts);
     }
     getEscrows();
   }, []);

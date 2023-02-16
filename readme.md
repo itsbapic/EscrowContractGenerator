@@ -24,6 +24,11 @@ Compile the contracts using `npx hardhat compile`. The artifacts will be placed 
 
 To run the front-end application run `npm start` from the `/app` directory. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+## Server
+
+`cd` into the `/server` directory and run `node index.js`
+
+To run the front-end application run `npm start` from the top level directory. 
 
 # Grading Rubric
 ## Basics:

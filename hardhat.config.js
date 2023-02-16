@@ -6,10 +6,11 @@ module.exports = {
   paths: {
     artifacts: "./app/src/artifacts",
   }
-  // ,
-  // networks: {
-  //   // goerli: {
-  //   //   url: process.env.GOERLI_URL
-  //   // }
-  // }
+  ,
+  networks: {
+    goerli: {
+      url: process.env.GOERLI_URL,
+      accounts: [process.env.ALCHEMY_API_KEY]
+    }
+  }
 };
